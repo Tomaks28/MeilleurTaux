@@ -1,11 +1,13 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
-const PreviousButton = () => {
+const PreviousButton = props => {
+  const history = useHistory();
   return (
     <button
       className="previous-button"
       onClick={() => {
-        alert("cliked");
+        history.push(props.previous);
       }}
     >
       Précédent

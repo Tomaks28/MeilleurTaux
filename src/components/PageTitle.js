@@ -3,8 +3,11 @@ import React from "react";
 const Title = props => {
   return (
     <>
-      <div className="general-padding title">
-        <h1>{props.title}</h1>
+      <div className="general-padding">
+        <h1 className="title">
+          {props.title}
+          {props.info ? <i className="infos"></i> : null}
+        </h1>
       </div>
     </>
   );

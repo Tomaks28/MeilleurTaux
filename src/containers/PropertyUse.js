@@ -5,12 +5,16 @@ import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Boxes from "../components/Boxes";
 
-const GoodType = props => {
-  const boxes = ["maison", "appartement"];
+const PropertyUse = props => {
+  const boxes = [
+    "Résidence principale",
+    "Résidence secondaire",
+    "investissement locatif"
+  ];
   return (
     <>
       <Header />
-      <PageTitle title={"type de bien"} info={true} />
+      <PageTitle title={"usage du bien"} info={true} />
       <Boxes boxes={boxes} />
       <Footer
         percentage={props.percentage}
@@ -21,4 +25,4 @@ const GoodType = props => {
   );
 };
 
-export default GoodType;
+export default PropertyUse;

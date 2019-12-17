@@ -1,15 +1,19 @@
 // ìmport react project
-import React from "react";
+import React, { useState } from "react";
 //import react router to naviguate between pages
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+//import cookies
+import Cookies from "js-cookie";
 //import css stylizing files
 import "../src/reset.css";
 import "./App.css";
 //import React components
 import GoodType from "./containers/GoodType";
+import PropertyUse from "./containers/PropertyUse";
+import PropertyCondition from "./containers/PropertyCondition";
 
 const App = () => {
+  const [userChoices, setUserChoices] = useState(Cookies.get("userChoices"));
   return (
     <Router>
       <div>
@@ -19,36 +23,33 @@ const App = () => {
               <Link to="/">Good type</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/usage">About</Link>
             </li>
             <li>
-              <Link to="/users">Users</Link>
+              <Link to="/condition">Users</Link>
             </li>
           </ul>
         </nav> */}
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/usage">
+            <PropertyUse
+              percentage={11}
+              previous={"/condition"}
+              next={"/situation"}
+            />
           </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/condition">
+            <PropertyCondition percentage={8} previous={"/"} next={"/usage"} />
           </Route>
           <Route path="/">
-            <GoodType />
+            <GoodType percentage={5} previous={"/"} next={"/condition"} />
           </Route>
         </Switch>
       </div>
     </Router>
   );
 };
-
-function About() {
-  return <h2>About</h2>;
-}
-function Users() {
-  return <h2>Users</h2>;
-}
 
 export default App;

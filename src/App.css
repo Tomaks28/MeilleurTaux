@@ -6,11 +6,14 @@ body {
 
 /* -------------------- GLOBAL RULE -------------------- */
 :root {
+  --black: #000;
   --grey: #f0f0f0;
   --white: #ffffff;
   --orange: #ff9d23;
   --padding: 200px;
   --borderBlur: #ffdfb1;
+  --boxBorder: #b7b7b7;
+  --boxShadow: #e4e4e4;
 }
 
 .general-padding {
@@ -42,6 +45,64 @@ body {
   font-size: 35px;
   font-weight: 800;
 }
+
+.infos {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  background: url(images/infos.png) left top no-repeat;
+  background-size: 30px;
+  /* object-fit: contain; */
+}
+
+/* -------------------- BOXES -------------------- */
+
+.boxes {
+  display: flex;
+  justify-content: space-around;
+  /* margin: 40px 0 30px; */
+}
+
+/* -------------------- BOX -------------------- */
+
+.box {
+  flex: 1;
+  margin-right: 10px;
+  font-weight: bold;
+  border: 1px solid var(--boxBorder);
+  text-decoration: none;
+  color: var(--black);
+  background-color: var(--white);
+  font-size: 18px;
+  line-height: 24px;
+  text-transform: uppercase;
+  height: 95px;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  position: relative;
+  box-shadow: 0 4px 0 var(--boxShadow);
+}
+
+.box label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box:hover {
+  color: var(--white);
+  background-color: var(--orange);
+}
+
+/* .box:active {
+  color: var(--white);
+  background-color: var(--orange);
+} */
 
 /* -------------------- FOOTER -------------------- */
 

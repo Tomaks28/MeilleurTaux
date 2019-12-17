@@ -4,13 +4,13 @@ import NextButton from "./NextButton";
 import ProgressBar from "./ProgressBar";
 import LegalNotice from "./LegalNotice";
 
-const Footer = () => {
+const Footer = props => {
   return (
     <>
       <div className="general-padding footer">
-        <PreviousButton />
-        <ProgressBar percentage={24} />
-        <NextButton />
+        <PreviousButton previous={props.previous} />
+        <ProgressBar percentage={props.percentage} />
+        <NextButton next={props.next} />
       </div>
       <LegalNotice />
     </>
