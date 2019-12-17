@@ -1,38 +1,126 @@
-.App {
-  text-align: center;
+body {
+  font-family: Oswald;
+  font-size: 24px;
+  line-height: 1.5;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* -------------------- GLOBAL RULE -------------------- */
+:root {
+  --grey: #f0f0f0;
+  --white: #ffffff;
+  --orange: #ff9d23;
+  --padding: 200px;
+  --borderBlur: #ffdfb1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.general-padding {
+  padding: 20px var(--padding);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* -------------------- HEADER -------------------- */
+
+.header {
+  /* display: flex; */
+  /* flex-direction: "row"; */
+  border-bottom: 1px solid var(--grey);
+
+  height: 100px;
+  width: "100%";
+}
+
+.header p {
+  font-size: 18px;
+  font-family: Oswald;
+  font-weight: bold;
+}
+
+/* -------------------- TITLE -------------------- */
+
+.title {
+  color: var(--orange);
+  text-transform: uppercase;
+  font-size: 35px;
+  font-weight: 800;
+}
+
+/* -------------------- FOOTER -------------------- */
+
+.footer {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.previous-button {
+  border: none;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.progress-bar {
+  /* padding: 0px 200px 0px 200px; */
+  /* width: 100%; */
+  width: 500px;
+  /* height: 48px; */
+  /* border: 1px solid black; */
+  position: relative;
+}
+
+.full-bar {
+  width: 100%;
+  height: 6px;
+  background-color: var(--grey);
+  position: absolute;
+}
+
+.progression {
+  height: 6px;
+  position: absolute;
+  width: 40%;
+  z-index: 1;
+  background-color: var(--orange);
+}
+
+/* .progression::after {
+  border-radius: 100%;
+} */
+
+.progression-step {
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  line-height: 42px;
+  z-index: 2;
+  background-color: var(--orange);
+  border: 4px solid var(--borderBlur);
+  top: -25px;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  display: block;
+  border-radius: 100%;
+  position: absolute;
+}
+
+.next-button {
+  background-color: var(--orange);
+  border-radius: 20px;
   color: white;
+  font-weight: bold;
+  padding: 5px 25px 5px 25px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.legal-notice {
+  margin-left: var(--padding);
+  font-size: 11px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.legal-notice-underlined {
+  font-size: 11px;
+  text-decoration: underline;
+  cursor: pointer;
 }
