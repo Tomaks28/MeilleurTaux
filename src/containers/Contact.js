@@ -5,13 +5,11 @@ import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Boxes from "../components/Boxes";
 
-const PropertyCondition = props => {
-  const boxes = ["ancien", "neuf"];
+const Contact = props => {
   return (
     <>
       <Header />
-      <PageTitle title={"état du bien"} info={true} />
-      <Boxes boxes={boxes} />
+      <PageTitle title={"vos coordonnées"} info={false} />
       <Footer
         percentage={props.percentage}
         previous={props.previous}
@@ -21,4 +19,4 @@ const PropertyCondition = props => {
   );
 };
 
-export default PropertyCondition;
+export default Contact;
