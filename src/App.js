@@ -13,7 +13,7 @@ import PropertyUse from "./containers/PropertyUse";
 import PropertyCondition from "./containers/PropertyCondition";
 import UserSituation from "./containers/UserSituation";
 import GoodLocation from "./containers/GoodLocation";
-import Amount from "./containers/Amount";
+import Budget from "./containers/Budget";
 import Contact from "./containers/Contact";
 import Finish from "./containers/Finish";
 
@@ -22,33 +22,18 @@ const App = () => {
   return (
     <Router>
       <div>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Good type</Link>
-            </li>
-            <li>
-              <Link to="/usage">About</Link>
-            </li>
-            <li>
-              <Link to="/condition">Users</Link>
-            </li>
-          </ul>
-        </nav> */}
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
-          {/* STEP 8 : terminé */}
+          {/* STEP 8 : finish step */}
           <Route path="/finish">
             <Finish />
           </Route>
-          {/* STEP 7 : coordonnées */}
+          {/* STEP 7 : user contacts */}
           <Route path="/contact">
-            <Contact percentage={93} previous={"/amount"} next={"/finish"} />
+            <Contact percentage={93} previous={"/budget"} next={"/finish"} />
           </Route>
-          {/* STEP 6 : Montant */}
-          <Route path="/amount">
-            <Amount
+          {/* STEP 6 : Budget */}
+          <Route path="/budget">
+            <Budget
               percentage={29}
               previous={"/goodlocation"}
               next={"/contact"}
@@ -59,7 +44,7 @@ const App = () => {
             <GoodLocation
               percentage={26}
               previous={"/situation"}
-              next={"/amount"}
+              next={"/budget"}
             />
           </Route>
           {/* STEP 4 : Situation */}
@@ -70,7 +55,7 @@ const App = () => {
               next={"/goodlocation"}
             />
           </Route>
-          {/* STEP 3 : Usage du bien */}
+          {/* STEP 3 : Good usage*/}
           <Route path="/usage">
             <PropertyUse
               percentage={11}
@@ -78,11 +63,11 @@ const App = () => {
               next={"/situation"}
             />
           </Route>
-          {/* STEP 2 : Etat du bien */}
+          {/* STEP 2 : Good condition */}
           <Route path="/condition">
             <PropertyCondition percentage={8} previous={"/"} next={"/usage"} />
           </Route>
-          {/* STEP 1 : Type de bien */}
+          {/* STEP 1 : Good type */}
           <Route path="/">
             <GoodType percentage={5} previous={"/"} next={"/condition"} />
           </Route>

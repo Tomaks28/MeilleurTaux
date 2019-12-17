@@ -47,13 +47,14 @@ body {
 }
 
 .infos {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 29px;
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
   background: url(images/infos.png) left top no-repeat;
-  background-size: 30px;
+  background-size: 25px;
+  margin-right: 5px;
   /* object-fit: contain; */
 }
 
@@ -103,6 +104,24 @@ body {
   color: var(--white);
   background-color: var(--orange);
 } */
+
+/* -------------------- LINE -------------------- */
+
+.line {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px;
+  flex: 1;
+  /* width: 800px; */
+  /* flex: 1; */
+}
+
+.fields {
+  width: 350px;
+}
 
 /* -------------------- FOOTER -------------------- */
 
