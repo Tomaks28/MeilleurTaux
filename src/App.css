@@ -96,6 +96,11 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.box-selected {
+  color: var(--white);
+  background-color: var(--orange);
+}
 .box:hover {
   color: var(--white);
   background-color: var(--orange);

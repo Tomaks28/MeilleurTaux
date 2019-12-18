@@ -25,16 +25,30 @@ import GoodLocation from "./containers/GoodLocation";
 import Budget from "./containers/Budget";
 import Contact from "./containers/Contact";
 import Finish from "./containers/Finish";
+import BackOffice from "./containers/BackOffice";
+
+let initState = {};
+if (Cookies.get("choices")) {
+  initState = JSON.parse(Cookies.get("choices"));
+}
+
+let currentStep = "/";
+if (Cookies.get("step")) {
+  currentStep = Cookies.get("step");
+}
 
 const App = () => {
-  const [userChoices, setUserChoices] = useState({});
+  const [userChoices, setUserChoices] = useState(initState);
+  const [step, setStep] = useState(currentStep);
+  console.log(step);
 
   useEffect(() => {
-    console.log(userChoices);
-  }, [userChoices]);
+    // console.log("here : ", userChoices);
+
+    Cookies.set("choices", JSON.stringify(userChoices));
+  }, [userChoices, setUserChoices]);
 
   // Getting the last user step from navigator cookies
-  const step = Cookies.get("step");
 
   // const getRoutes = () => {
   //   const reactRoutes = [];
@@ -65,6 +79,10 @@ const App = () => {
           <Redirect to={step ? step : "/"} />
         </nav>
         <Switch>
+          {/* STEP 9 : BackOffice step */}
+          <Route path="/backoffice">
+            <BackOffice />
+          </Route>
           {/* STEP 8 : finish step */}
           <Route path="/finish">
             <Finish userChoices={userChoices} setUserChoices={setUserChoices} />
@@ -137,6 +155,7 @@ const App = () => {
               next={"/condition"}
               userChoices={userChoices}
               setUserChoices={setUserChoices}
+              setStep={setStep}
             />
           </Route>
         </Switch>

@@ -12,6 +12,7 @@ const Boxes = props => {
               box={box}
               setData={props.setData}
               data={props.data}
+              next={props.next}
             />
           );
         })}
