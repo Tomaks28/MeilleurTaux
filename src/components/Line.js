@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import picto from "../images/picto-confidentiel.png";
@@ -8,18 +8,17 @@ const Line = props => {
   const [isLoading, setIsLoading] = useState(true);
   const [list, setList] = useState();
 
-  const generateOptions = useCallback(datas => {
-    const options = [];
-    datas.cities.map((city, index) => {
-      options.push(
-        <option key={index}>{`${city.city} (${city.code})`}</option>
-      );
-    });
-    setList(options);
-    setIsLoading(false);
-  });
-
   useEffect(() => {
+    const generateOptions = datas => {
+      const options = [];
+      datas.cities.map((city, index) => {
+        options.push(
+          <option key={index}>{`${city.city} (${city.code})`}</option>
+        );
+      });
+      setList(options);
+      setIsLoading(false);
+    };
     const fetchData = async () => {
       if (search.length >= 3) {
         console.log("requete");
@@ -32,7 +31,7 @@ const Line = props => {
     fetchData();
   }, [search]);
 
-  const handleFieldsChanges = useCallback(value => {
+  const handleFieldsChanges = value => {
     if (props.line.valueToGet === "goodPrice") props.states.setGoodPrice(value);
     else if (props.line.valueToGet === "buildingCost") {
       props.states.setBuildingCost(value);
@@ -43,7 +42,7 @@ const Line = props => {
     } else if (props.line.valueToGet === "email") {
       props.states.setEmail(value);
     }
-  });
+  };
 
   return (
     <div className="general-padding">
@@ -126,7 +125,7 @@ const Line = props => {
                     : null
                 }
               />
-              <img className="picto" src={picto} alt="confidential" />
+              <img className="picto" src={picto} alt="confidential picto" />
             </div>
           ) : null}
         </div>

@@ -7,7 +7,9 @@ const NextButton = props => {
     <button
       className="next-button"
       onClick={() => {
-        history.push(props.next);
+        props.next
+          ? history.push(props.next)
+          : alert("Veuillez remplir tous les champs");
       }}
     >
       Suivant

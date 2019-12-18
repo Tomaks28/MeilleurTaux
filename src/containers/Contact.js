@@ -44,10 +44,31 @@ const Contact = props => {
           setEmail
         }}
       />
+      <div
+        className="general-padding"
+        style={{
+          display: "flex",
+          alignItems: "center"
+        }}
+      >
+        <input
+          type="radio"
+          id="huey"
+          name="drone"
+          value="huey"
+          checked={checked}
+          onClick={() => {
+            setChecked(!checked);
+          }}
+        />
+        <label for="huey" style={{ fontSize: "12px", fontWeight: "bold" }}>
+          J'accepte de recevoir par email des propositions de MeilleurTaux.
+        </label>
+      </div>
       <Footer
         percentage={props.percentage}
         previous={props.previous}
-        next={props.next}
+        next={email && checked ? props.next : null}
       />
     </>
   );

@@ -1,23 +1,22 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 const Box = props => {
-  let checked = false;
+  // console.log("log : ", props.box, props.data);
   return (
     <div
-      className="box"
+      className={props.data === props.box ? "box box-selected" : "box"}
       onClick={() => {
-        // checked = !checked;
+        props.setData(props.box);
       }}
     >
       <label>
-        {/* <input type="radio" checked={checked} /> */}
         <input
           type="radio"
           onChange={() => {
             // useHistory.push("/" + props.nextPage);
           }}
-          // value={props.box}
+          value={props.box === props.data ? true : false}
+          // ckecked={props.box === props.data ? true : false}
         />
         {props.box}
       </label>

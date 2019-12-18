@@ -6,7 +6,14 @@ const Boxes = props => {
     <>
       <div className="general-padding boxes">
         {props.boxes.map((box, index) => {
-          return <Box key={index} box={box} />;
+          return (
+            <Box
+              key={index}
+              box={box}
+              setData={props.setData}
+              data={props.data}
+            />
+          );
         })}
       </div>
     </>

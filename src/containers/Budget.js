@@ -80,7 +80,7 @@ const Budget = props => {
       <Footer
         percentage={props.percentage}
         previous={props.previous}
-        next={props.next}
+        next={goodPrice && charges ? props.next : null}
       />
     </>
   );
