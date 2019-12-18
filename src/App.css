@@ -17,7 +17,7 @@ body {
 }
 
 .general-padding {
-  padding: 20px var(--padding);
+  padding: 0px var(--padding);
 }
 
 /* -------------------- HEADER -------------------- */
@@ -26,9 +26,9 @@ body {
   /* display: flex; */
   /* flex-direction: "row"; */
   border-bottom: 1px solid var(--grey);
-
   height: 100px;
   width: "100%";
+  padding: 20px var(--padding);
 }
 
 .header p {
@@ -42,8 +42,9 @@ body {
 .title {
   color: var(--orange);
   text-transform: uppercase;
-  font-size: 35px;
+  font-size: 25px;
   font-weight: 800;
+  padding: 20px 10px 20px 0;
 }
 
 .infos {
@@ -115,12 +116,60 @@ body {
   font-weight: bold;
   padding: 20px;
   flex: 1;
+  padding-right: var(--padding);
   /* width: 800px; */
   /* flex: 1; */
 }
 
 .fields {
   width: 350px;
+}
+
+.text-area-orange {
+  box-shadow: 0 3px 0 var(--orange);
+  border-color: var(--orange);
+  /* border-color: transparent; */
+  border-radius: 4px;
+}
+
+.text-area-grey {
+  box-shadow: 0 3px 0 var(--grey);
+  border-color: var(--grey);
+  /* border-color: transparent; */
+  border-radius: 4px;
+}
+
+.email {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.picto {
+  position: absolute;
+  right: -25px;
+  height: 50px;
+  width: 50px;
+}
+
+/* -------------------- CONTACT -------------------- */
+
+.quotation-box {
+  background-color: var(--orange);
+  height: 200px;
+  width: 280px;
+  line-height: 1.4;
+  color: var(--white);
+  padding: 40px 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 40px;
+}
+.image {
+  height: 200px;
+  object-fit: contain;
 }
 
 /* -------------------- FOOTER -------------------- */
@@ -130,6 +179,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 50px var(--padding);
 }
 
 .previous-button {
