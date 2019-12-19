@@ -6,8 +6,6 @@ const Boxes = props => {
     <>
       <div className="general-padding boxes">
         {props.boxes.map((box, index) => {
-          // console.log("here ", box, props.data);
-          console.log("here ", props.data);
           return (
             <Box
               key={index}

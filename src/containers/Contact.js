@@ -4,21 +4,23 @@ import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Line from "../components/Line";
 import Cookies from "js-cookie";
+import AppCookies from "../components/Cookies";
 
 import image from "../images/visuel-desktop-email.jpg";
 
 const Contact = props => {
-  Cookies.set("step", "/contact");
-
+  //Creating all needed react states
   const [checked, setChecked] = useState(false);
-  const [email, setEmail] = useState(props.userChoices.mail);
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    Cookies.set("step", "/contact");
+    setEmail(AppCookies("choices", "objet").email);
+  }, []);
 
   useEffect(() => {
     if (email) {
-      Cookies.set("email", email);
-
-      // props.setUserChoices({ goodLocation: goodLocation });
-      // props.setStep(props.next);
+      props.handleChoice({ email: email });
     }
   }, [email, setEmail]);
 

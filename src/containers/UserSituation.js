@@ -4,28 +4,30 @@ import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Boxes from "../components/Boxes";
 import Cookies from "js-cookie";
+import AppCookies from "../components/Cookies";
 
 const UserSituation = props => {
-  Cookies.set("step", "/situation");
-
+  //Creating all needed react states
   const boxes = [
     "locataire",
     "propriétaire",
     "bénéficiare d'un logement de fonction",
     "hébergé à titre gratuit"
   ];
-
-  const [userSituation, setUserSituation] = useState(
-    props.userChoices.userSituation
-  );
+  const [userSituation, setUserSituation] = useState("");
 
   useEffect(() => {
-    if (userSituation) {
-      Cookies.set("userSituation", userSituation);
-      // props.setUserChoices({ userSituation: userSituatio });
-      // props.setStep(props.next);
-    }
-  }, [userSituation, setUserSituation]);
+    //set the current page in cookies to open there if webbrowser is closed
+    Cookies.set("step", "/situation");
+    setUserSituation(AppCookies("choices", "objet").userSituation);
+  }, []);
+
+  //function to manage state changes and navigation
+  const handleChange = value => {
+    setUserSituation(value);
+    props.handleChoice({ userSituation: value });
+    props.setStep(props.next);
+  };
   return (
     <>
       <Header />
@@ -33,7 +35,7 @@ const UserSituation = props => {
       <Boxes
         boxes={boxes}
         data={userSituation}
-        setData={setUserSituation}
+        setData={handleChange}
         next={props.next}
       />
       <Footer

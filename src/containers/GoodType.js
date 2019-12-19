@@ -1,42 +1,28 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Boxes from "../components/Boxes";
 import Cookies from "js-cookie";
-
-//declaring global variables
-const cookieName = "goodType";
+import AppCookies from "../components/Cookies";
 
 const GoodType = props => {
   //Creating all needed react states
   const boxes = ["maison", "appartement"];
   const [goodType, setGoodType] = useState("");
 
-  //if exist, get the last value else create the cookies
   useEffect(() => {
     //set the current page in cookies to open there if webbrowser is closed
     Cookies.set("step", "/");
-    const updateDatas = () => {
-      let initState = "";
-      if (Cookies.get(cookieName)) {
-        initState = Cookies.get(cookieName);
-      } else {
-        Cookies.set(cookieName, "");
-        initState = "";
-      }
-      setGoodType(initState);
-    };
-    updateDatas();
+    setGoodType(AppCookies("choices", "objet").goodType);
   }, []);
 
   //function to manage state changes and navigation
-  const handleChange = useCallback(value => {
+  const handleChange = value => {
     setGoodType(value);
-    Cookies.set(cookieName, value);
-    props.setUserChoices({ goodType: value });
+    props.handleChoice({ goodType: value });
     props.setStep(props.next);
-  });
+  };
 
   return (
     <>
