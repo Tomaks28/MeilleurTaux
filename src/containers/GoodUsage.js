@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
@@ -6,17 +7,21 @@ import Boxes from "../components/Boxes";
 import Cookies from "js-cookie";
 
 //declaring global variables
-const cookieName = "goodType";
+const cookieName = "goodUsage";
 
-const GoodType = props => {
+const GoodUsage = props => {
   //Creating all needed react states
-  const boxes = ["maison", "appartement"];
-  const [goodType, setGoodType] = useState("");
+  const boxes = [
+    "Résidence principale",
+    "Résidence secondaire",
+    "investissement locatif"
+  ];
+  const [goodUsage, setGoodUsage] = useState("");
 
   //if exist, get the last value else create the cookies
   useEffect(() => {
     //set the current page in cookies to open there if webbrowser is closed
-    Cookies.set("step", "/");
+    Cookies.set("step", "/usage");
     const updateDatas = () => {
       let initState = "";
       if (Cookies.get(cookieName)) {
@@ -25,14 +30,14 @@ const GoodType = props => {
         Cookies.set(cookieName, "");
         initState = "";
       }
-      setGoodType(initState);
+      setGoodUsage(initState);
     };
     updateDatas();
   }, []);
 
   //function to manage state changes and navigation
   const handleChange = useCallback(value => {
-    setGoodType(value);
+    setGoodUsage(value);
     Cookies.set(cookieName, value);
     props.setUserChoices({ goodType: value });
     props.setStep(props.next);
@@ -41,20 +46,20 @@ const GoodType = props => {
   return (
     <>
       <Header />
-      <PageTitle title={"type de bien"} info={true} />
+      <PageTitle title={"usage du bien"} info={true} />
       <Boxes
         boxes={boxes}
-        data={goodType}
+        data={goodUsage}
         setData={handleChange}
         next={props.next}
       />
       <Footer
         percentage={props.percentage}
         previous={props.previous}
-        next={goodType ? props.next : null}
+        next={goodUsage ? props.next : null}
       />
     </>
   );
 };
 
-export default GoodType;
+export default GoodUsage;

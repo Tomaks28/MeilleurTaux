@@ -6,8 +6,6 @@ import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Cookies from "js-cookie";
 
-const goodType = Cookies.get("usage");
-
 const Budget = props => {
   Cookies.set("step", "/budget");
 
@@ -31,14 +29,18 @@ const Budget = props => {
     }
   ];
 
-  const [goodPrice, setGoodPrice] = useState(0);
-  const [buildingCost, setBuildingCost] = useState(0);
-  const [charges, setCharges] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [goodPrice, setGoodPrice] = useState(
+    props.userChoices.budget.goodPrice
+  );
+  const [buildingCost, setBuildingCost] = useState(
+    props.userChoices.budget.buildingCost
+  );
+  const [charges, setCharges] = useState(props.userChoices.budget.charges);
+  const [total, setTotal] = useState(props.userChoices.budget.total);
 
   useEffect(() => {
     let rate = 0;
-    if (goodType === "neuf") {
+    if (props.userChoices.goodType === "neuf") {
       rate = 1.8;
     } else {
       rate = 7.38;

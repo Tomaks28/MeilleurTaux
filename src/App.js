@@ -1,5 +1,5 @@
 // ìmport react project
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 //import react router to naviguate between pages
 import {
@@ -18,8 +18,8 @@ import "./App.css";
 
 //import React containers
 import GoodType from "./containers/GoodType";
-import PropertyUse from "./containers/PropertyUse";
-import PropertyCondition from "./containers/PropertyCondition";
+import GoodUsage from "./containers/GoodUsage";
+import GoodCondition from "./containers/GoodCondition";
 import UserSituation from "./containers/UserSituation";
 import GoodLocation from "./containers/GoodLocation";
 import Budget from "./containers/Budget";
@@ -41,11 +41,17 @@ const App = () => {
   const [userChoices, setUserChoices] = useState(initState);
   const [step, setStep] = useState(currentStep);
 
-  useEffect(() => {
-    // console.log("here : ", userChoices);
-
-    Cookies.set("choices", JSON.stringify(userChoices));
-  }, [userChoices, setUserChoices]);
+  const addChoice = obj => {
+    // create copy of userChoices
+    const newChoices = { ...userChoices };
+    //Get the first element of object
+    const key = Object.keys(obj).shift();
+    //replacing/creating the element by the new one
+    newChoices[key] = obj[key];
+    //Copying the new value in states
+    setUserChoices(newChoices);
+    Cookies.set("choices", JSON.stringify(newChoices));
+  };
 
   // Getting the last user step from navigator cookies
 
@@ -84,7 +90,7 @@ const App = () => {
           </Route>
           {/* STEP 8 : finish step */}
           <Route path="/finish">
-            <Finish userChoices={userChoices} setUserChoices={setUserChoices} />
+            <Finish userChoices={userChoices} setUserChoices={addChoice} />
           </Route>
           {/* STEP 7 : user contacts */}
           <Route path="/contact">
@@ -93,7 +99,7 @@ const App = () => {
               previous={"/budget"}
               next={"/finish"}
               userChoices={userChoices}
-              setUserChoices={setUserChoices}
+              setUserChoices={addChoice}
             />
           </Route>
           {/* STEP 6 : Budget */}
@@ -103,7 +109,7 @@ const App = () => {
               previous={"/goodlocation"}
               next={"/contact"}
               userChoices={userChoices}
-              setUserChoices={setUserChoices}
+              setUserChoices={addChoice}
             />
           </Route>
           {/* STEP 5 : Location */}
@@ -113,7 +119,7 @@ const App = () => {
               previous={"/situation"}
               next={"/budget"}
               userChoices={userChoices}
-              setUserChoices={setUserChoices}
+              setUserChoices={addChoice}
             />
           </Route>
           {/* STEP 4 : Situation */}
@@ -123,27 +129,30 @@ const App = () => {
               previous={"/usage"}
               next={"/goodlocation"}
               userChoices={userChoices}
-              setUserChoices={setUserChoices}
+              setUserChoices={addChoice}
+              setStep={setStep}
             />
           </Route>
           {/* STEP 3 : Good usage*/}
           <Route path="/usage">
-            <PropertyUse
+            <GoodUsage
               percentage={28}
               previous={"/condition"}
               next={"/situation"}
               userChoices={userChoices}
-              setUserChoices={setUserChoices}
+              setUserChoices={addChoice}
+              setStep={setStep}
             />
           </Route>
           {/* STEP 2 : Good condition */}
           <Route path="/condition">
-            <PropertyCondition
+            <GoodCondition
               percentage={14}
               previous={"/"}
               next={"/usage"}
               userChoices={userChoices}
-              setUserChoices={setUserChoices}
+              setUserChoices={addChoice}
+              setStep={setStep}
             />
           </Route>
           {/* STEP 1 : Good type */}
@@ -153,7 +162,7 @@ const App = () => {
               previous={"/"}
               next={"/condition"}
               userChoices={userChoices}
-              setUserChoices={setUserChoices}
+              setUserChoices={addChoice}
               setStep={setStep}
             />
           </Route>
