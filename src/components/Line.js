@@ -18,10 +18,10 @@ const Line = props => {
       });
       setList(options);
       setIsLoading(false);
+      props.setData(search);
     };
     const fetchData = async () => {
       if (search.length >= 3) {
-        console.log("requete");
         const response = await axios(
           `https://vicopo.selfbuild.fr/cherche/${search}`
         );

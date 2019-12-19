@@ -6,6 +6,8 @@ import Boxes from "../components/Boxes";
 import Cookies from "js-cookie";
 
 const UserSituation = props => {
+  Cookies.set("step", "/situation");
+
   const boxes = [
     "locataire",
     "propriétaire",

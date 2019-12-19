@@ -40,7 +40,6 @@ if (Cookies.get("step")) {
 const App = () => {
   const [userChoices, setUserChoices] = useState(initState);
   const [step, setStep] = useState(currentStep);
-  console.log(step);
 
   useEffect(() => {
     // console.log("here : ", userChoices);

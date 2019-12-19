@@ -1,11 +1,25 @@
-import React from "react";
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Line from "../components/Line";
+import Cookies from "js-cookie";
 
 const GoodLocation = props => {
+  Cookies.set("step", "/goodlocation");
+
+  const [goodLocation, setGoodLocation] = useState(
+    props.userChoices.goodLocation
+  );
+
+  useEffect(() => {
+    if (goodLocation) {
+      Cookies.set("goodLocation", goodLocation);
+      // props.setUserChoices({ goodLocation: goodLocation });
+      // props.setStep(props.next);
+    }
+  }, [goodLocation, setGoodLocation]);
+
   const lines = [
     { title: "Dans quel pays se trouve votre projet ? *", type: "country" },
     { title: "Ville ou code postal ? *", type: "city" }
@@ -21,6 +35,8 @@ const GoodLocation = props => {
         return (
           <Line
             key={index}
+            data={goodLocation}
+            setData={setGoodLocation}
             line={line}
             color={index % 2 ? "white" : "#F1F1F1"}
           />
@@ -35,7 +51,7 @@ const GoodLocation = props => {
       <Footer
         percentage={props.percentage}
         previous={props.previous}
-        next={props.next}
+        next={goodLocation ? props.next : null}
       />
     </>
   );

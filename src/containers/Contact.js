@@ -1,15 +1,26 @@
-import React, { useState } from "react";
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
 import Line from "../components/Line";
+import Cookies from "js-cookie";
 
 import image from "../images/visuel-desktop-email.jpg";
 
 const Contact = props => {
+  Cookies.set("step", "/contact");
+
   const [checked, setChecked] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(props.userChoices.mail);
+
+  useEffect(() => {
+    if (email) {
+      Cookies.set("email", email);
+
+      // props.setUserChoices({ goodLocation: goodLocation });
+      // props.setStep(props.next);
+    }
+  }, [email, setEmail]);
 
   const line = {
     title: "Adresse e-mail emprunteur *",

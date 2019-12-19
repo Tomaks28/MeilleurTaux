@@ -47,11 +47,10 @@ const BackOffice = () => {
             onClick={async () => {
               try {
                 setIsLoading(true);
-                const response = await axios.post(
+                await axios.post(
                   "https://meilleur-taux-by-tomaks.herokuapp.com/delete",
                   { id: simulation._id }
                 );
-                // setSimulations(simulationsLines(response.data));
                 setIsLoading(false);
               } catch (err) {
                 console.log(err);
@@ -80,7 +79,7 @@ const BackOffice = () => {
       }
     };
     fetchData();
-  }, [isLoading === false]);
+  }, [isLoading]);
 
   //Use Effect to manage user typing the password. if password is correct we switch in logged mode and we can manage simulations administration
   useEffect(() => {

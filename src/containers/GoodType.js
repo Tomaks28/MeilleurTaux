@@ -6,12 +6,15 @@ import Boxes from "../components/Boxes";
 import Cookies from "js-cookie";
 
 const GoodType = props => {
+  Cookies.set("step", "/");
+
   const boxes = ["maison", "appartement"];
   const [goodType, setGoodType] = useState(props.userChoices.goodType);
 
   useEffect(() => {
     if (goodType) {
       Cookies.set("goodType", goodType);
+
       // props.setUserChoices({ goodType: goodType });
       // props.setStep(props.next);
     }

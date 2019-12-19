@@ -7,6 +7,8 @@ import Boxes from "../components/Boxes";
 import Cookies from "js-cookie";
 
 const PropertyCondition = props => {
+  Cookies.set("step", "/condition");
+
   const boxes = ["ancien", "neuf"];
   const [goodCondition, setGoodCondition] = useState(
     props.userChoices.propertyCondition

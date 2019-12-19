@@ -9,6 +9,8 @@ import Cookies from "js-cookie";
 const goodType = Cookies.get("usage");
 
 const Budget = props => {
+  Cookies.set("step", "/budget");
+
   const lines = [
     {
       title: "Montant estimé de votre acquisition *",

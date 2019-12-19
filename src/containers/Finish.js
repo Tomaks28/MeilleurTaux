@@ -14,12 +14,12 @@ const Finish = props => {
         const response = await axios.post(
           "https://meilleur-taux-by-tomaks.herokuapp.com/save",
           {
-            goodType: Cookies.get("gootType"),
+            goodType: Cookies.get("goodType"),
             goodCondition: Cookies.get("goodCondition"),
             goodUsage: Cookies.get("goodUsage"),
             userSituation: Cookies.get("userSituation"),
-            city: Cookies.get("city"),
-            mail: Cookies.get("mail"),
+            city: Cookies.get("goodLocation"),
+            mail: Cookies.get("email"),
             acquisitionValue: Cookies.get("acquisitionValue"),
             buildingCosts: Cookies.get("buildingCosts"),
             charges: Cookies.get("charges"),
@@ -27,16 +27,18 @@ const Finish = props => {
           }
         );
         setTracking(response.data.tracking);
-        Cookies.remove("gootType");
+        Cookies.remove("goodType");
         Cookies.remove("goodCondition");
         Cookies.remove("goodUsage");
         Cookies.remove("userSituation");
-        Cookies.remove("city");
-        Cookies.remove("mail");
+        Cookies.remove("goodLocation");
+        Cookies.remove("email");
         Cookies.remove("acquisitionValue");
         Cookies.remove("buildingCosts");
         Cookies.remove("charges");
         Cookies.remove("totalAmount");
+        Cookies.remove("step");
+        Cookies.remove("choices");
       } catch (err) {
         alert(err);
         console.log(err);
