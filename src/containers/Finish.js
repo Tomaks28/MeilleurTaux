@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+
+//import of components used in this code
 import Header from "../components/Header";
 import PageTitle from "../components/PageTitle";
+
 import Cookies from "js-cookie";
 
-const Finish = ({ project }) => {
-  const [tracking, setTracking] = useState("");
-  console.log("here :", project);
+//Import of axios to execute post request
+import axios from "axios";
 
+const Finish = ({ project, serverURL }) => {
+  //Creating all needed react states
+  const [tracking, setTracking] = useState("");
+
+  // useEffect used to send post request to server and get back tracking number and deleting all cookies
   useEffect(() => {
     const fetchData = async () => {
       if (Object.keys(project).length >= 10) {
         try {
-          const response = await axios.post(
-            "https://meilleur-taux-by-tomaks.herokuapp.com/save",
-            {
-              goodType: project.goodType,
-              goodCondition: project.goodCondition,
-              goodUsage: project.goodUsage,
-              userSituation: project.userSituation,
-              city: project.goodLocation,
-              email: project.email,
-              goodPrice: project.goodPrice,
-              buildingCosts: project.buildingCosts,
-              charges: project.charges,
-              total: project.total
-            }
-          );
+          const response = await axios.post(serverURL + "save", {
+            goodType: project.goodType,
+            goodCondition: project.goodCondition,
+            goodUsage: project.goodUsage,
+            userSituation: project.userSituation,
+            city: project.goodLocation,
+            email: project.email,
+            goodPrice: project.goodPrice,
+            buildingCosts: project.buildingCosts,
+            charges: project.charges,
+            total: project.total
+          });
           setTracking(response.data.tracking);
           Cookies.remove("project");
           Cookies.remove("step");
@@ -41,7 +44,9 @@ const Finish = ({ project }) => {
 
   return (
     <>
+      {/* showing the top header bar */}
       <Header />
+      {/* showing the Title*/}
       <PageTitle title={"et voila, le formulaire est terminé !"} info={false} />
       {tracking ? (
         <div style={{ display: "flex", alignItems: "center" }}>

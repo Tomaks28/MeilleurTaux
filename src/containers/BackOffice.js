@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const BackOffice = () => {
+const BackOffice = ({ serverURL }) => {
   //Creation of React States
   const [isLoading, setIsLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
@@ -47,10 +47,7 @@ const BackOffice = () => {
             onClick={async () => {
               try {
                 setIsLoading(true);
-                await axios.post(
-                  "https://meilleur-taux-by-tomaks.herokuapp.com/delete",
-                  { id: simulation._id }
-                );
+                await axios.post(serverURL + "delete", { id: simulation._id });
                 setIsLoading(false);
               } catch (err) {
                 console.log(err);

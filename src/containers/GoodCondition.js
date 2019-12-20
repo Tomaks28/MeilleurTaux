@@ -1,5 +1,6 @@
 import React from "react";
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+//import of components used in this code
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
@@ -14,13 +15,16 @@ const GoodCondition = ({
   project,
   setProject
 }) => {
-  //Creating all needed react states
+  //Creating dynamically boxes to show on screen
   const boxes = ["ancien", "neuf"];
 
   return (
     <>
+      {/* showing the top header bar */}
       <Header />
+      {/* showing the Title*/}
       <PageTitle title={"état du bien"} info={true} />
+      {/* showing dynamically boxes*/}
       <Boxes
         boxes={boxes}
         project={project}
@@ -30,6 +34,7 @@ const GoodCondition = ({
         next={next}
         field="goodCondition"
       />
+      {/* showing the bottom footer bar */}
       <Footer
         percentage={percentage}
         previous={previous}

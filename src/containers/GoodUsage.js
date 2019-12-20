@@ -1,4 +1,6 @@
 import React from "react";
+
+//import of components used in this code
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
@@ -13,7 +15,7 @@ const GoodUsage = ({
   project,
   setProject
 }) => {
-  //Creating all needed react states
+  //Creating dynamically boxes to show on screen
   const boxes = [
     "Résidence principale",
     "Résidence secondaire",
@@ -22,8 +24,11 @@ const GoodUsage = ({
 
   return (
     <>
+      {/* showing the top header bar */}
       <Header />
+      {/* showing the Title*/}
       <PageTitle title={"usage du bien"} info={true} />
+      {/* showing dynamically boxes*/}
       <Boxes
         boxes={boxes}
         project={project}
@@ -33,6 +38,7 @@ const GoodUsage = ({
         next={next}
         field="goodUsage"
       />
+      {/* showing the bottom footer bar */}
       <Footer
         percentage={percentage}
         previous={previous}

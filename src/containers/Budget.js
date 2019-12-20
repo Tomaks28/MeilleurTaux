@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+//import of components used in this code
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
@@ -12,6 +14,11 @@ const Budget = ({
   project,
   setProject
 }) => {
+  useEffect(() => {
+    //useEffect used to update current page cookie
+    setStep("/budget");
+  });
+
   //function which returns the rate to apply in function of goodCondition
   const getRate = (condition = project.goodCondition) => {
     return condition === "neuf" ? 1.8 : 7.38;
@@ -22,13 +29,14 @@ const Budget = ({
     return (value * rate) / 100;
   };
 
+  //calculating all fields if goodPrice changed
   const handleAcquisition = value => {
-    //calculating all fields if goodPrice changed
-    console.log(Number(project.buildingCosts));
+    //calculating charges
     const chargesValue = calculateCharges(
       value + project.buildingCosts,
       getRate()
     );
+    //setting the global state
     setProject({
       ...project,
       goodPrice: Number(value),
@@ -38,9 +46,11 @@ const Budget = ({
     });
   };
 
+  //calculating all fields if building costs changed
   const handleBuildingCosts = value => {
-    //calculating all fields if goodPrice changed
+    //calculating charges
     const chargesValue = calculateCharges(value + project.goodPrice, getRate());
+    //setting the global state
     setProject({
       ...project,
       goodPrice: Number(project.goodPrice) || 0,
@@ -50,7 +60,9 @@ const Budget = ({
     });
   };
 
+  //updating of charges state if charges changes only
   const handleCharges = value => {
+    //setting the global state
     setProject({
       ...project,
       charges: Number(value),
@@ -60,7 +72,9 @@ const Budget = ({
 
   return (
     <>
+      {/* showing the top header bar */}
       <Header />
+      {/* showing the Title*/}
       <PageTitle
         title={"définissons le montant de votre projet"}
         info={false}
@@ -168,6 +182,7 @@ const Budget = ({
 
       {/* ******************************************************************************** */}
 
+      {/* showing the bottom footer bar */}
       <Footer
         percentage={percentage}
         previous={previous}

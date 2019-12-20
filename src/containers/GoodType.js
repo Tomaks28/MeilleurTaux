@@ -1,4 +1,6 @@
 import React from "react";
+
+//import of components used in this code
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
@@ -13,13 +15,16 @@ const GoodType = ({
   project,
   setProject
 }) => {
-  //Creating dynamically boxes to show
+  //Creating dynamically boxes to show on screen
   const boxes = ["maison", "appartement"];
 
   return (
     <>
+      {/* showing the top header bar */}
       <Header />
+      {/* showing the Title*/}
       <PageTitle title={"type de bien"} info={true} />
+      {/* showing dynamically boxes*/}
       <Boxes
         boxes={boxes}
         project={project}
@@ -29,6 +34,7 @@ const GoodType = ({
         next={next}
         field="goodType"
       />
+      {/* showing the bottom footer bar */}
       <Footer
         percentage={percentage}
         previous={previous}

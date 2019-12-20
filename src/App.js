@@ -21,18 +21,19 @@ import GoodType from "./containers/GoodType";
 import GoodCondition from "./containers/GoodCondition";
 import GoodUsage from "./containers/GoodUsage";
 import UserSituation from "./containers/UserSituation";
-
 import GoodLocation from "./containers/GoodLocation";
 import Budget from "./containers/Budget";
 import Contact from "./containers/Contact";
 import Finish from "./containers/Finish";
 import BackOffice from "./containers/BackOffice";
 
+//Creation of serveur URL
+const serverURL = "https://meilleur-taux-by-tomaks.herokuapp.com/";
+
 const App = () => {
   //Creation of React States
   const [step, setStep] = useState(Cookies.get("step") || "/");
   const [project, setProject] = useState(Cookies.getJSON("project") || {});
-  console.log("project", project);
 
   //This function will be called on project state updates and it will be stored in nav Cookies
   useEffect(() => {
@@ -54,7 +55,7 @@ const App = () => {
         <Switch>
           {/* STEP 9 : BackOffice step */}
           <Route path="/backoffice">
-            <BackOffice />
+            <BackOffice serverURL={serverURL} />
           </Route>
           {/* STEP 8 : finish step */}
           <Route path="/finish">
@@ -63,6 +64,7 @@ const App = () => {
               setStep={setStep}
               project={project}
               setProject={setProject}
+              serverURL={serverURL}
             />
           </Route>
           {/* STEP 7 : user contacts */}
