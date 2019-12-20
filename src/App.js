@@ -27,64 +27,29 @@ import Budget from "./containers/Budget";
 import Contact from "./containers/Contact";
 import Finish from "./containers/Finish";
 import BackOffice from "./containers/BackOffice";
-import AppCookies from "./components/Cookies";
 
 const App = () => {
-  const [userChoices, setUserChoices] = useState({});
-  const [step, setStep] = useState("");
+  //Creation of React States
+  const [step, setStep] = useState(Cookies.get("step") || "/");
+  const [project, setProject] = useState(Cookies.getJSON("project") || {});
+  console.log("project", project);
 
+  //This function will be called on project state updates and it will be stored in nav Cookies
   useEffect(() => {
-    setUserChoices(AppCookies("choices", "objet"));
-    setStep(AppCookies("step", "string"));
-  }, []);
+    Cookies.set("project", project);
+  }, [project]);
 
-  const addChoice = obj => {
-    // create copy of userChoices
-    const newChoices = { ...userChoices };
-    // //Get the first element of object
-    // const key = Object.keys(obj).shift();
-    Object.keys(obj).map((key, index) => {
-      // console.log(key);
-      // console.log(obj[key]);
-
-      //replacing/creating the element by the new one
-      newChoices[key] = obj[key];
-    });
-    //Copying the new value in states
-    setUserChoices(newChoices);
-    console.log(newChoices);
-    Cookies.set("choices", JSON.stringify(newChoices));
-  };
-
-  // Getting the last user step from navigator cookies
-
-  // const getRoutes = () => {
-  //   const reactRoutes = [];
-  //   const routes = [
-  //     "/",
-  //     "/condition",
-  //     "/usage",
-  //     "/situation",
-  //     "/goodlocation",
-  //     "/budget",
-  //     "/contact",
-  //     "/finish"
-  //   ];
-
-  //   const containers = [<GoodType />];
-  //   routes.map((route, index) => {
-  //     if (index === 0) {
-  //       reactRoutes.push(<Route path={route}></Route>);
-  //     }
-  //   });
-  // };
+  //This function will be called on step state updates and it will be stored in nav Cookies
+  useEffect(() => {
+    Cookies.set("step", step);
+  }, [step]);
 
   return (
     <Router>
       <div>
         <nav>
           {/* Redirect user to the correct step, if not defined then got to the first step */}
-          <Redirect to={step ? step : "/"} />
+          <Redirect to={step} />
         </nav>
         <Switch>
           {/* STEP 9 : BackOffice step */}
@@ -93,16 +58,23 @@ const App = () => {
           </Route>
           {/* STEP 8 : finish step */}
           <Route path="/finish">
-            <Finish userChoices={userChoices} handleChoice={addChoice} />
+            <Finish
+              step={step}
+              setStep={setStep}
+              project={project}
+              setProject={setProject}
+            />
           </Route>
           {/* STEP 7 : user contacts */}
           <Route path="/contact">
             <Contact
               percentage={84}
-              previous={"/budget"}
-              next={"/finish"}
-              userChoices={userChoices}
-              handleChoice={addChoice}
+              previous="/budget"
+              next="/finish"
+              step={step}
+              setStep={setStep}
+              project={project}
+              setProject={setProject}
             />
           </Route>
           {/* STEP 6 : Budget */}
@@ -111,8 +83,10 @@ const App = () => {
               percentage={70}
               previous={"/location"}
               next={"/contact"}
-              userChoices={userChoices}
-              handleChoice={addChoice}
+              step={step}
+              setStep={setStep}
+              project={project}
+              setProject={setProject}
             />
           </Route>
           {/* STEP 5 : Location */}
@@ -121,8 +95,10 @@ const App = () => {
               percentage={56}
               previous={"/situation"}
               next={"/budget"}
-              userChoices={userChoices}
-              handleChoice={addChoice}
+              step={step}
+              setStep={setStep}
+              project={project}
+              setProject={setProject}
             />
           </Route>
           {/* STEP 4 : Situation */}
@@ -131,9 +107,10 @@ const App = () => {
               percentage={42}
               previous={"/usage"}
               next={"/location"}
-              userChoices={userChoices}
-              handleChoice={addChoice}
+              step={step}
               setStep={setStep}
+              project={project}
+              setProject={setProject}
             />
           </Route>
           {/* STEP 3 : Good usage*/}
@@ -142,31 +119,34 @@ const App = () => {
               percentage={28}
               previous={"/condition"}
               next={"/situation"}
-              userChoices={userChoices}
-              handleChoice={addChoice}
+              step={step}
               setStep={setStep}
+              project={project}
+              setProject={setProject}
             />
           </Route>
           {/* STEP 2 : Good condition */}
           <Route path="/condition">
             <GoodCondition
               percentage={14}
-              previous={"/"}
+              previous={"/type"}
               next={"/usage"}
-              userChoices={userChoices}
-              handleChoice={addChoice}
+              step={step}
               setStep={setStep}
+              project={project}
+              setProject={setProject}
             />
           </Route>
           {/* STEP 1 : Good type */}
           <Route path="/">
             <GoodType
               percentage={0}
-              previous={"/"}
-              next={"/condition"}
-              userChoices={userChoices}
-              handleChoice={addChoice}
+              previous="/type"
+              next="/condition"
+              step={step}
               setStep={setStep}
+              project={project}
+              setProject={setProject}
             />
           </Route>
         </Switch>

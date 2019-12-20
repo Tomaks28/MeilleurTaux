@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
-import Cookies from "js-cookie";
-import AppCookies from "../components/Cookies";
 
-const Budget = props => {
-  //creating all React States
-  const [goodPrice, setGoodPrice] = useState(0);
-  const [buildingCost, setBuildingCost] = useState(0);
-  const [charges, setCharges] = useState(0);
-  const [total, setTotal] = useState(0);
-
+const Budget = ({
+  percentage,
+  previous,
+  next,
+  step,
+  setStep,
+  project,
+  setProject
+}) => {
   //function which returns the rate to apply in function of goodCondition
-  const getRate = (condition = props.userChoices.goodCondition) => {
+  const getRate = (condition = project.goodCondition) => {
     return condition === "neuf" ? 1.8 : 7.38;
   };
 
@@ -22,43 +22,41 @@ const Budget = props => {
     return (value * rate) / 100;
   };
 
-  useEffect(() => {
-    //get all current values from cookies
-    Cookies.set("step", "/budget");
-    if (AppCookies("choices", "objet").goodPrice !== undefined) {
-      setGoodPrice(AppCookies("choices", "number").goodPrice);
-    }
-    if (AppCookies("choices", "objet").buildingCost !== undefined) {
-      setBuildingCost(AppCookies("choices", "number").buildingCost);
-    }
-    if (AppCookies("choices", "objet").charges !== undefined) {
-      setCharges(AppCookies("choices", "number").charges);
-    }
-    if (AppCookies("choices", "objet").total !== undefined) {
-      setTotal(AppCookies("choices", "number").total);
-    }
-  }, []);
+  const handleAcquisition = value => {
+    //calculating all fields if goodPrice changed
+    console.log(Number(project.buildingCost));
+    const chargesValue = calculateCharges(
+      value + project.buildingCost,
+      getRate()
+    );
+    setProject({
+      ...project,
+      goodPrice: Number(value),
+      buildingCost: Number(project.buildingCost) || 0,
+      charges: Number(chargesValue) || 0,
+      total: Number(value + project.buildingCost + chargesValue) || 0
+    });
+  };
 
-  useEffect(() => {
-    //calculating all fields if goodPrice or buildingCosts change
-    // console.log(goodPrice, buildingCost, charges, total);
-    const chargesValue = calculateCharges(goodPrice + buildingCost, getRate());
-    setCharges(chargesValue);
-    setTotal(goodPrice + buildingCost + chargesValue);
+  const handleBuildingCosts = value => {
+    //calculating all fields if goodPrice changed
+    const chargesValue = calculateCharges(value + project.goodPrice, getRate());
+    setProject({
+      ...project,
+      goodPrice: Number(project.goodPrice) || 0,
+      buildingCost: Number(value),
+      charges: Number(chargesValue) || 0,
+      total: Number(value + project.goodPrice + chargesValue) || 0
+    });
+  };
 
-    //Updating global states
-    props.handleChoice({ goodPrice: goodPrice });
-
-    // props.handleChoice({ goodPrice: goodPrice, buildingCost: buildingCost });
-    // props.handleChoice({ goodPrice, buildingCost, charges, total });
-    // props.handleChoice({ charges: charges });
-    // props.handleChoice({ total: total });
-  }, [goodPrice, setGoodPrice, buildingCost, setBuildingCost]);
-
-  useEffect(() => {
-    //calculating all fields if charges change
-    setTotal(goodPrice + buildingCost + charges);
-  }, [charges, setCharges]);
+  const handleCharges = value => {
+    setProject({
+      ...project,
+      charges: Number(value),
+      total: Number(project.goodPrice + project.buildingCost + value) || 0
+    });
+  };
 
   return (
     <>
@@ -84,11 +82,11 @@ const Budget = props => {
               disabled={false}
               type="number"
               onChange={event => {
-                setGoodPrice(Number(event.target.value));
+                handleAcquisition(Number(event.target.value));
               }}
               style={{ textAlign: "right" }}
               placeholder={0}
-              value={goodPrice}
+              value={Number(project.goodPrice) || 0}
             />
             {" €"}
           </div>
@@ -109,11 +107,11 @@ const Budget = props => {
               disabled={false}
               type="number"
               onChange={event => {
-                setBuildingCost(Number(event.target.value));
+                handleBuildingCosts(Number(event.target.value));
               }}
               style={{ textAlign: "right" }}
               placeholder={0}
-              value={buildingCost}
+              value={Number(project.buildingCost) || 0}
             />
             {" €"}
           </div>
@@ -134,11 +132,11 @@ const Budget = props => {
               disabled={false}
               type="number"
               onChange={event => {
-                setCharges(Number(event.target.value));
+                handleCharges(Number(event.target.value));
               }}
               style={{ textAlign: "right" }}
               placeholder={0}
-              value={charges}
+              value={Number(project.charges) || 0}
             />
             {" €"}
           </div>
@@ -158,12 +156,10 @@ const Budget = props => {
               }
               disabled={true}
               type="number"
-              onChange={event => {
-                setTotal(Number(event.target.value));
-              }}
+              onChange={event => {}}
               style={{ textAlign: "right" }}
               placeholder={0}
-              value={total}
+              value={Number(project.total) || 0}
             />
             {" €"}
           </div>
@@ -173,9 +169,9 @@ const Budget = props => {
       {/* ******************************************************************************** */}
 
       <Footer
-        percentage={props.percentage}
-        previous={props.previous}
-        next={goodPrice && charges ? props.next : null}
+        percentage={percentage}
+        previous={previous}
+        next={project.goodPrice && project.charges ? next : null}
       />
     </>
   );

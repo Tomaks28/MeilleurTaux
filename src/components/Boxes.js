@@ -1,18 +1,20 @@
 import React from "react";
 import Box from "../components/Box";
 
-const Boxes = props => {
+const Boxes = ({ boxes, project, setProject, field, setStep, next }) => {
   return (
     <>
       <div className="general-padding boxes">
-        {props.boxes.map((box, index) => {
+        {boxes.map((box, index) => {
           return (
             <Box
               key={index}
               box={box}
-              setData={props.setData}
-              data={props.data}
-              next={props.next}
+              setProject={setProject}
+              project={project}
+              field={field}
+              setStep={setStep}
+              next={next}
             />
           );
         })}

@@ -1,47 +1,38 @@
 import React, { useState, useEffect } from "react";
-// import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import PageTitle from "../components/PageTitle";
 import Cookies from "js-cookie";
 
-const Finish = props => {
+const Finish = ({ project }) => {
   const [tracking, setTracking] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          "https://meilleur-taux-by-tomaks.herokuapp.com/save",
-          {
-            goodType: Cookies.get("goodType"),
-            goodCondition: Cookies.get("goodCondition"),
-            goodUsage: Cookies.get("goodUsage"),
-            userSituation: Cookies.get("userSituation"),
-            city: Cookies.get("goodLocation"),
-            mail: Cookies.get("email"),
-            acquisitionValue: Cookies.get("acquisitionValue"),
-            buildingCosts: Cookies.get("buildingCosts"),
-            charges: Cookies.get("charges"),
-            totalAmount: Cookies.get("totalAmount")
-          }
-        );
-        setTracking(response.data.tracking);
-        Cookies.remove("goodType");
-        Cookies.remove("goodCondition");
-        Cookies.remove("goodUsage");
-        Cookies.remove("userSituation");
-        Cookies.remove("goodLocation");
-        Cookies.remove("email");
-        Cookies.remove("acquisitionValue");
-        Cookies.remove("buildingCosts");
-        Cookies.remove("charges");
-        Cookies.remove("totalAmount");
-        Cookies.remove("step");
-        Cookies.remove("choices");
-      } catch (err) {
-        alert(err);
-        console.log(err);
+      if (project) {
+        try {
+          const response = await axios.post(
+            "https://meilleur-taux-by-tomaks.herokuapp.com/save",
+            {
+              goodType: project.goodType,
+              goodCondition: project.goodCondition,
+              goodUsage: project.goodUsage,
+              userSituation: project.userSituation,
+              city: project.goodLocation,
+              email: project.email,
+              acquisitionValue: project.goodPrice,
+              buildingCosts: project.buildingCosts,
+              charges: project.charges,
+              total: project.total
+            }
+          );
+          setTracking(response.data.tracking);
+          Cookies.remove("project");
+          Cookies.remove("step");
+        } catch (err) {
+          alert(err);
+          console.log(err);
+        }
       }
     };
     fetchData();

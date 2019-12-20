@@ -1,35 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
-import Line from "../components/Line";
-import Cookies from "js-cookie";
-import AppCookies from "../components/Cookies";
+import picto from "../images/picto-confidentiel.png";
 
 import image from "../images/visuel-desktop-email.jpg";
 
-const Contact = props => {
-  //Creating all needed react states
-  const [checked, setChecked] = useState(false);
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    Cookies.set("step", "/contact");
-    setEmail(AppCookies("choices", "objet").email);
-  }, []);
-
-  useEffect(() => {
-    if (email) {
-      props.handleChoice({ email: email });
-    }
-  }, [email, setEmail]);
-
-  const line = {
-    title: "Adresse e-mail emprunteur *",
-    type: "email",
-    disabled: false,
-    valueToGet: "email"
-  };
+const Contact = ({
+  percentage,
+  previous,
+  next,
+  step,
+  setStep,
+  project,
+  setProject
+}) => {
   return (
     <>
       <Header />
@@ -49,14 +34,26 @@ const Contact = props => {
         </p>
         <img className="image" src={image} alt="visuel desktop email" />
       </div>
-      <Line
-        line={line}
-        color={"#F1F1F1"}
-        states={{
-          email,
-          setEmail
-        }}
-      />
+      <div className="general-padding">
+        <div className="line" style={{ backgroundColor: "#F1F1F1" }}>
+          <span style={{ flex: "1" }}>Adresse e-mail emprunteur *</span>
+          <div style={{ display: "flex" }}>
+            <i className="infos"></i>
+            <div className="email">
+              <input
+                className="fields text-area-orange"
+                type="email"
+                onChange={event => {
+                  setProject({ ...project, email: event.target.value });
+                }}
+                style={{ textAlign: "left" }}
+                value={project.email}
+              />
+              <img className="picto" src={picto} alt="confidential picto" />
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         className="general-padding"
         style={{
@@ -69,9 +66,9 @@ const Contact = props => {
           id="huey"
           name="drone"
           value="huey"
-          checked={checked}
+          checked={project.checked}
           onClick={() => {
-            setChecked(!checked);
+            setProject({ ...project, checked: !project.checked });
           }}
         />
         <label for="huey" style={{ fontSize: "12px", fontWeight: "bold" }}>
@@ -79,9 +76,9 @@ const Contact = props => {
         </label>
       </div>
       <Footer
-        percentage={props.percentage}
-        previous={props.previous}
-        next={email && checked ? props.next : null}
+        percentage={percentage}
+        previous={previous}
+        next={project.email && project.checked ? next : null}
       />
     </>
   );

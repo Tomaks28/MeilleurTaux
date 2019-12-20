@@ -1,21 +1,22 @@
 import React from "react";
 
-const Box = props => {
+const Box = ({ box, setProject, project, field, setStep, next }) => {
   return (
     <div
-      className={props.data === props.box ? "box box-selected" : "box"}
+      className={project[field] === box ? "box box-selected" : "box"}
       onClick={() => {
-        props.setData(props.box);
+        setProject({ ...project, [field]: box });
+        setStep(next);
       }}
     >
       <label>
         <input
           type="radio"
           onChange={() => {}}
-          value={props.box === props.data ? true : false}
-          checked={props.box === props.data ? true : false}
+          value={project[field] === box ? true : false}
+          checked={project[field] === box ? true : false}
         />
-        {props.box}
+        {box}
       </label>
     </div>
   );
