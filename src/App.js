@@ -26,9 +26,11 @@ import Budget from "./containers/Budget";
 import Contact from "./containers/Contact";
 import Finish from "./containers/Finish";
 import BackOffice from "./containers/BackOffice";
+import Simulation from "./containers/Simulation";
 
 //Creation of serveur URL
 const serverURL = "https://meilleur-taux-by-tomaks.herokuapp.com/";
+// const serverURL = "http://localhost:3000/";
 
 const App = () => {
   //Creation of React States
@@ -53,6 +55,10 @@ const App = () => {
           <Redirect to={step} />
         </nav>
         <Switch>
+          {/* STEP 10 : Simulation step */}
+          <Route path="/simulation/:id">
+            <Simulation serverURL={serverURL} />
+          </Route>
           {/* STEP 9 : BackOffice step */}
           <Route path="/backoffice">
             <BackOffice serverURL={serverURL} />
