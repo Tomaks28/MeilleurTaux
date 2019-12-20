@@ -10,62 +10,56 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 const Finish = ({ project, setProject, serverURL }) => {
-  console.log(serverURL + "save");
-
   //Creating all needed react states
   const [tracking, setTracking] = useState("");
 
   // useEffect used to send post request to server and get back tracking number and deleting all cookies
-  useEffect(
-    project,
-    serverURL => {
-      const fetchData = async () => {
-        // check if all datas are present
-        if (
-          project.goodType &&
-          project.goodCondition &&
-          project.goodUsage &&
-          project.userSituation &&
-          project.goodLocation &&
-          project.email &&
-          project.goodPrice !== undefined &&
-          project.buildingCosts !== undefined &&
-          project.charges !== undefined &&
-          project.total !== undefined
-        ) {
-          try {
-            // sending post request to server with all data
-            const response = await axios.post(serverURL + "simulation/save", {
-              goodType: project.goodType,
-              goodCondition: project.goodCondition,
-              goodUsage: project.goodUsage,
-              userSituation: project.userSituation,
-              city: project.goodLocation,
-              email: project.email,
-              goodPrice: project.goodPrice,
-              buildingCosts: project.buildingCosts,
-              charges: project.charges,
-              total: project.total
-            });
-            // state to show the tracking number
-            setTracking(response.data.tracking);
-            // removing of all cookies
-            Cookies.remove("project");
-            Cookies.remove("step");
-            // reseting project datas
-            setProject({});
-          } catch (err) {
-            alert(err.message);
-            console.log(err);
-          }
-        } else {
-          alert("erreur");
+  useEffect(() => {
+    const fetchData = async () => {
+      // check if all datas are present
+      if (
+        project.goodType &&
+        project.goodCondition &&
+        project.goodUsage &&
+        project.userSituation &&
+        project.goodLocation &&
+        project.email &&
+        project.goodPrice !== undefined &&
+        project.buildingCosts !== undefined &&
+        project.charges !== undefined &&
+        project.total !== undefined
+      ) {
+        try {
+          // sending post request to server with all data
+          const response = await axios.post(serverURL + "simulation/save", {
+            goodType: project.goodType,
+            goodCondition: project.goodCondition,
+            goodUsage: project.goodUsage,
+            userSituation: project.userSituation,
+            city: project.goodLocation,
+            email: project.email,
+            goodPrice: project.goodPrice,
+            buildingCosts: project.buildingCosts,
+            charges: project.charges,
+            total: project.total
+          });
+          // state to show the tracking number
+          setTracking(response.data.tracking);
+          // removing of all cookies
+          Cookies.remove("project");
+          Cookies.remove("step");
+          // reseting project datas
+          setProject({});
+        } catch (err) {
+          alert(err.message);
+          console.log(err);
         }
-      };
-      fetchData();
-    },
-    []
-  );
+      } else {
+        alert("erreur");
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>

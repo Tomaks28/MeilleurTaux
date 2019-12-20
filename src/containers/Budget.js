@@ -101,6 +101,7 @@ const Budget = ({
               style={{ textAlign: "right" }}
               placeholder={0}
               value={Number(project.goodPrice) || 0}
+              min={0}
             />
             {" €"}
           </div>
@@ -126,6 +127,7 @@ const Budget = ({
               style={{ textAlign: "right" }}
               placeholder={0}
               value={Number(project.buildingCosts) || 0}
+              min={0}
             />
             {" €"}
           </div>
@@ -151,6 +153,7 @@ const Budget = ({
               style={{ textAlign: "right" }}
               placeholder={0}
               value={Number(project.charges) || 0}
+              min={0}
             />
             {" €"}
           </div>
@@ -174,6 +177,7 @@ const Budget = ({
               style={{ textAlign: "right" }}
               placeholder={0}
               value={Number(project.total) || 0}
+              min={0}
             />
             {" €"}
           </div>

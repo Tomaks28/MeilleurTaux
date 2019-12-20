@@ -10,6 +10,37 @@ const Simulation = ({ serverURL }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [simulation, setSimulation] = useState();
 
+  useEffect(() => {
+    const createData = simulation => {
+      return (
+        <div>
+          <p>Tracking Number : {simulation.tracking}</p>
+          <p>Type : {simulation.goodType}</p>
+          <p>Condition : {simulation.goodCondition}</p>
+          <p>Utilisation : {simulation.goodUsage}</p>
+          <p>Situation : {simulation.userSituation}</p>
+          <p>Ville : {simulation.city}</p>
+          <p>E-mail : {simulation.email}</p>
+          <p>Prix acquisition : {simulation.goodPrice}</p>
+          <p>Prix travaux : {simulation.buildingCosts}</p>
+          <p>Frais notaire : {simulation.charges}</p>
+          <p>Prix total : {simulation.total}</p>
+        </div>
+      );
+    };
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(serverURL + `simulation?id=${id}`);
+        setSimulation(createData(response.data));
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       {isLoading ? (
@@ -29,7 +60,7 @@ const Simulation = ({ serverURL }) => {
           />
         </div>
       ) : (
-        <div>{id}</div>
+        <div>{simulation}</div>
       )}
     </>
   );
