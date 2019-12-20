@@ -5,6 +5,7 @@ const Boxes = ({ boxes, project, setProject, field, setStep, next }) => {
   return (
     <>
       <div className="general-padding boxes">
+        {/* mapping all boxes and print on screen */}
         {boxes.map((box, index) => {
           return (
             <Box

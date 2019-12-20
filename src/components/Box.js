@@ -9,6 +9,7 @@ const Box = ({ box, setProject, project, field, setStep, next }) => {
         setStep(next);
       }}
     >
+      {/* Creating radio button */}
       <label>
         <input
           type="radio"
