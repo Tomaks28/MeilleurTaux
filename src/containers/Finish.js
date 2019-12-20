@@ -10,7 +10,7 @@ const Finish = ({ project }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (Object.keys(project).length === 10) {
+      if (Object.keys(project).length >= 10) {
         try {
           const response = await axios.post(
             "https://meilleur-taux-by-tomaks.herokuapp.com/save",
