@@ -6,10 +6,11 @@ import Cookies from "js-cookie";
 
 const Finish = ({ project }) => {
   const [tracking, setTracking] = useState("");
+  console.log("here :", project);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (project) {
+      if (Object.keys(project).length === 10) {
         try {
           const response = await axios.post(
             "https://meilleur-taux-by-tomaks.herokuapp.com/save",
@@ -20,7 +21,7 @@ const Finish = ({ project }) => {
               userSituation: project.userSituation,
               city: project.goodLocation,
               email: project.email,
-              acquisitionValue: project.goodPrice,
+              goodPrice: project.goodPrice,
               buildingCosts: project.buildingCosts,
               charges: project.charges,
               total: project.total

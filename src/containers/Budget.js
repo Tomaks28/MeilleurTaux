@@ -24,17 +24,17 @@ const Budget = ({
 
   const handleAcquisition = value => {
     //calculating all fields if goodPrice changed
-    console.log(Number(project.buildingCost));
+    console.log(Number(project.buildingCosts));
     const chargesValue = calculateCharges(
-      value + project.buildingCost,
+      value + project.buildingCosts,
       getRate()
     );
     setProject({
       ...project,
       goodPrice: Number(value),
-      buildingCost: Number(project.buildingCost) || 0,
+      buildingCosts: Number(project.handleBuildingCosts) || 0,
       charges: Number(chargesValue) || 0,
-      total: Number(value + project.buildingCost + chargesValue) || 0
+      total: Number(value + project.buildingCosts + chargesValue) || 0
     });
   };
 
@@ -44,7 +44,7 @@ const Budget = ({
     setProject({
       ...project,
       goodPrice: Number(project.goodPrice) || 0,
-      buildingCost: Number(value),
+      buildingCosts: Number(value),
       charges: Number(chargesValue) || 0,
       total: Number(value + project.goodPrice + chargesValue) || 0
     });
@@ -54,7 +54,7 @@ const Budget = ({
     setProject({
       ...project,
       charges: Number(value),
-      total: Number(project.goodPrice + project.buildingCost + value) || 0
+      total: Number(project.goodPrice + project.buildingCosts + value) || 0
     });
   };
 
@@ -111,7 +111,7 @@ const Budget = ({
               }}
               style={{ textAlign: "right" }}
               placeholder={0}
-              value={Number(project.buildingCost) || 0}
+              value={Number(project.buildingCosts) || 0}
             />
             {" €"}
           </div>
