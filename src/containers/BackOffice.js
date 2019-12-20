@@ -37,9 +37,10 @@ const BackOffice = ({ serverURL }) => {
             <div
               style={{
                 display: "flex",
-                flex: "1",
+                // flex: "1",
                 justifyContent: "space-between",
-                fontSize: "20px"
+                fontSize: "20px",
+                width: "90%"
               }}
               onClick={() => {
                 history.push(`/simulation/${simulation._id}`);
@@ -50,7 +51,7 @@ const BackOffice = ({ serverURL }) => {
               <span>E-mail : {simulation.mail}</span>
               <span>Type du bien : {simulation.goodType}</span>
               <span>Etat du bien : {simulation.goodCondition}</span>
-              <span>Montant total : {simulation.totalAmount}</span>
+              <span>Montant total : {simulation.total}</span>
             </div>
             <span
               style={{ marginLeft: "20px" }}
